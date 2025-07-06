@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 My Homework Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Auth Section -->
+    <div id="authSection">
+        <div class="container">
+            <div class="header">
+                <div class="logo">📝✨</div>
+                <h1 class="title">My Homework Tracker</h1>
+                <p class="subtitle">จัดการงาน/การบ้านอย่างชาญฉลาด</p>
+            </div>
+
+            <div class="card">
+                <div id="errorMessage" class="error-message hidden"></div>
+                <div id="successMessage" class="success-message hidden"></div>
+                
+                <!-- Login Form -->
+                <div id="loginForm">
+                    <h2 style="text-align: center; margin-bottom: 25px; color: #9f7aea;">เข้าสู่ระบบ</h2>
+                    <div class="form-group">
+                        <label for="loginEmail">อีเมล</label>
+                        <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">รหัสผ่าน</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button class="btn btn-primary" onclick="login()">เข้าสู่ระบบ</button>
+                    <button class="btn btn-secondary" onclick="showSignup()">สมัครสมาชิกใหม่</button>
+                    <button class="btn btn-secondary" onclick="showForgotPassword()" style="background: #fff5f5; color: #e53e3e; border-color: #fed7d7;">ลืมรหัสผ่าน?</button>
+                </div>
+
+                <!-- Signup Form -->
+                <div id="signupForm" class="hidden">
+                    <h2 style="text-align: center; margin-bottom: 25px; color: #9f7aea;">สมัครสมาชิก</h2>
+                    <div class="form-group">
+                        <label for="signupName">ชื่อ-นามสกุล</label>
+                        <input type="text" id="signupName" placeholder="ใส่ชื่อของคุณ" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">อีเมล</label>
+                        <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">รหัสผ่าน</label>
+                        <input type="password" id="signupPassword" placeholder="••••••••" required>
+                    </div>
+                    <button class="btn btn-primary" onclick="signup()">สมัครสมาชิก</button>
+                    <button class="btn btn-secondary" onclick="showLogin()">กลับไปเข้าสู่ระบบ</button>
+                </div>
+
+                <!-- Forgot Password Form -->
+                <div id="forgotPasswordForm" class="hidden">
+                    <h2 style="text-align: center; margin-bottom: 25px; color: #9f7aea;">🔑 ลืมรหัสผ่าน</h2>
+                    <p style="text-align: center; color: #718096; margin-bottom: 20px; font-size: 14px;">
+                        ใส่อีเมลของคุณ เราจะส่งลิงก์สำหรับรีเซ็ตรหัสผ่านให้
+                    </p>
+                    <div class="form-group">
+                        <label for="forgotEmail">อีเมล</label>
+                        <input type="email" id="forgotEmail" placeholder="your@email.com" required>
+                    </div>
+                    <button class="btn btn-primary" onclick="resetPassword()">ส่งลิงก์รีเซ็ตรหัสผ่าน</button>
+                    <button class="btn btn-secondary" onclick="showLogin()">กลับไปเข้าสู่ระบบ</button>
+                </div>
+            </div>
+
+            <!-- Credits Section -->
+            <div class="credits">
+                <h3>💻 เครดิต</h3>
+                <p>พัฒนาโดย: icee.byy_ <span class="developer">นักพัฒนา Thailand</span></p>
+                <p>เวอร์ชั่น: 1.0.0</p>
+                <p>© 2024 My Homework Tracker</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboardSection" class="hidden">
+        <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
+        
+        <div class="container">
+            <div id="welcomeMessage" class="welcome-message"></div>
+            
+            <!-- Add Homework Form -->
+            <div class="card">
+                <h2 style="text-align: center; margin-bottom: 25px; color: #9f7aea;">➕ เพิ่มงาน/การบ้าน</h2>
+                <div class="form-group">
+                    <label for="homeworkTitle">ชื่อการบ้าน/งาน</label>
+                    <input type="text" id="homeworkTitle" placeholder="เช่น แบบฝึกหัดคณิตศาสตร์" required>
+                </div>
+                <div class="form-group">
+                    <label for="homeworkSubject">วิชา</label>
+                    <select id="homeworkSubject" required>
+                        <option value="">เลือกวิชา</option>
+                        <option value="คณิตศาสตร์">คณิตศาสตร์</option>
+                        <option value="ภาษาไทย">ภาษาไทย</option>
+                        <option value="ภาษาอังกฤษ">ภาษาอังกฤษ</option>
+                        <option value="วิทยาศาสตร์">วิทยาศาสตร์</option>
+                        <option value="สังคมศึกษา">สังคมศึกษา</option>
+                        <option value="ประวัติศาสตร์">ประวัติศาสตร์</option>
+                        <option value="ฟิสิกส์">ฟิสิกส์</option>
+                        <option value="เคมี">เคมี</option>
+                        <option value="ชีววิทยา">ชีววิทยา</option>
+                        <option value="อื่นๆ">อื่นๆ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="homeworkDescription">รายละเอียด</label>
+                    <textarea id="homeworkDescription" placeholder="ใส่รายละเอียดของงาน/การบ้าน (ไม่บังคับ)" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="homeworkAssignDate">วันที่ครูสั่ง</label>
+                    <input type="date" id="homeworkAssignDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="homeworkDueDate">วันกำหนดส่ง</label>
+                    <input type="date" id="homeworkDueDate" required>
+                </div>
+                <button class="btn btn-primary" onclick="addHomework()">เพิ่มงาน</button>
+            </div>
+
+            <!-- Homework List -->
+            <div id="homeworkList">
+                <h2 style="text-align: center; margin-bottom: 25px; color: #9f7aea;">📋 รายการงาน/การบ้าน</h2>
+                <div id="homeworkCards"></div>
+            </div>
+
+            <!-- Credits Section -->
+            <div class="credits">
+                <h3>💻 เครดิต</h3>
+                <p>พัฒนาโดย: icee.byy_ <span class="developer">นักพัฒนา Thailand</span></p>
+                <p>เวอร์ชั่น: 1.0.0</p>
+                <p>© 2024 My Homework Tracker</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
